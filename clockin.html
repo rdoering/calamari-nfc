@@ -4,22 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Calamari Clock-In</title>
-<script>
-window.location = "calamari://dashboardFragment?dashboardScreenType=CLOCK_IN";
-setTimeout(function() {
-  document.getElementById("msg").style.display = "block";
-}, 2000);
-</script>
 <style>
-body { font-family: -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #f5f5f5; }
-#msg { display: none; text-align: center; color: #333; }
-a { display: block; margin-top: 16px; padding: 16px 32px; background: #27a082; color: white; text-decoration: none; border-radius: 12px; font-size: 18px; font-weight: bold; }
+body { font-family: -apple-system, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #f5f5f5; gap: 16px; }
+a { display: block; width: 280px; padding: 16px; text-align: center; text-decoration: none; color: white; border-radius: 12px; font-size: 18px; font-weight: bold; }
+.v1 { background: #27a082; }
+.v2 { background: #1a7a5f; }
+.v3 { background: #0d5a42; }
+h2 { color: #666; font-size: 13px; margin: 8px 0 4px 0; font-weight: normal; }
 </style>
 </head>
 <body>
-<div id="msg">
-  <p>Falls die App nicht automatisch geoeffnet wurde:</p>
-  <a href="calamari://dashboardFragment?dashboardScreenType=CLOCK_IN">Arbeit starten</a>
-</div>
+<h1>Arbeit starten</h1>
+
+<h2>Variante 1: intent:// mit Component (ohne path)</h2>
+<a class="v1" href="intent:#Intent;action=android.intent.action.VIEW;category=android.intent.category.DEFAULT;category=android.intent.category.BROWSABLE;component=com.chrobrus.calamari.mobile.employee/io.calamari.mobile.android.features.main.MainActivity;S.dashboardScreenType=CLOCK_IN;end">
+  V1: Clock-In (Component + Extra)
+</a>
+
+<h2>Variante 2: intent:// mit Data-URI als String</h2>
+<a class="v2" href="intent:#Intent;action=android.intent.action.VIEW;category=android.intent.category.DEFAULT;category=android.intent.category.BROWSABLE;component=com.chrobrus.calamari.mobile.employee/io.calamari.mobile.android.features.main.MainActivity;S.android.intent.extra.TEXT=calamari%3A%2F%2FdashboardFragment%3FdashboardScreenType%3DCLOCK_IN;end">
+  V2: Clock-In (Component + Text Extra)
+</a>
+
+<h2>Variante 3: intent:// host ohne path</h2>
+<a class="v3" href="intent://dashboardFragment%3FdashboardScreenType%3DCLOCK_IN#Intent;scheme=calamari;package=com.chrobrus.calamari.mobile.employee;action=android.intent.action.VIEW;category=android.intent.category.DEFAULT;category=android.intent.category.BROWSABLE;end">
+  V3: Clock-In (encoded query in host)
+</a>
+
 </body>
 </html>
