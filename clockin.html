@@ -13,34 +13,22 @@ h2 { color: #666; font-size: 12px; margin: 6px 0 2px 0; font-weight: normal; }
 <body>
 <h1>Arbeit starten</h1>
 
-<!-- V1: JavaScript redirect mit intent:// (Variante A hatte die App geoeffnet) -->
-<h2>V1: JS redirect intent:// mit path /</h2>
-<a style="background:#27a082" href="#" onclick="window.location='intent://dashboardFragment/?dashboardScreenType=CLOCK_IN#Intent;scheme=calamari;package=com.chrobrus.calamari.mobile.employee;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;category=android.intent.category.DEFAULT;end';return false;">
+<!-- V1: data= Parameter mit vollstaendiger URL-encoded calamari:// URI -->
+<h2>V1: intent:// mit data= (vollstaendige URI encoded)</h2>
+<a style="background:#27a082" href="intent:#Intent;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;category=android.intent.category.DEFAULT;package=com.chrobrus.calamari.mobile.employee;data=calamari%3A%2F%2FdashboardFragment%3FdashboardScreenType%3DCLOCK_IN;end">
   V1: Clock-In
 </a>
 
-<!-- V2: iframe trick mit calamari:// -->
-<h2>V2: iframe mit calamari://</h2>
-<a style="background:#1a7a5f" href="#" onclick="var i=document.createElement('iframe');i.style.display='none';i.src='calamari://dashboardFragment?dashboardScreenType=CLOCK_IN';document.body.appendChild(i);return false;">
+<!-- V2: launchFlags + data= -->
+<h2>V2: intent:// mit data= + launchFlags</h2>
+<a style="background:#1a7a5f" href="intent:#Intent;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;category=android.intent.category.DEFAULT;package=com.chrobrus.calamari.mobile.employee;launchFlags=0x10000000;data=calamari%3A%2F%2FdashboardFragment%3FdashboardScreenType%3DCLOCK_IN;end">
   V2: Clock-In
 </a>
 
-<!-- V3: window.location calamari:// direkt -->
-<h2>V3: JS window.location calamari://</h2>
-<a style="background:#0d5a42" href="#" onclick="window.location='calamari://dashboardFragment?dashboardScreenType=CLOCK_IN';return false;">
+<!-- V3: data= mit component -->
+<h2>V3: intent:// mit data= + component</h2>
+<a style="background:#0d5a42" href="intent:#Intent;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;category=android.intent.category.DEFAULT;component=com.chrobrus.calamari.mobile.employee/io.calamari.mobile.android.features.main.MainActivity;data=calamari%3A%2F%2FdashboardFragment%3FdashboardScreenType%3DCLOCK_IN;end">
   V3: Clock-In
-</a>
-
-<!-- V4: anchor tag mit calamari:// (user-initiated click) -->
-<h2>V4: direkter link calamari://</h2>
-<a style="background:#8b4513" href="calamari://dashboardFragment?dashboardScreenType=CLOCK_IN">
-  V4: Clock-In
-</a>
-
-<!-- V5: intent:// ohne path, query als S. extra -->
-<h2>V5: intent:// ohne path + S.dashboardScreenType</h2>
-<a style="background:#555" href="intent://dashboardFragment#Intent;scheme=calamari;package=com.chrobrus.calamari.mobile.employee;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;category=android.intent.category.DEFAULT;S.dashboardScreenType=CLOCK_IN;end">
-  V5: Clock-In
 </a>
 
 </body>
